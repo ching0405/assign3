@@ -1,6 +1,6 @@
 /* 
 author:ching
-update:2016/8/11a
+update:2016/8/11
 */
 
 final int GAME_START = 0;
