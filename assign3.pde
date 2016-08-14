@@ -145,7 +145,7 @@ void draw() {
         
         case 2:                  
         //boundary detection
-        enemyY = (enemyY > (height - enemyHeight) - 2*enemySpacingY) ? floor(random(height - enemyHeight) - 2*enemySpacingY) : enemyY;      
+        enemyY = (enemyY > (height - enemyHeight) - 2*enemySpacingY) ? floor(random((height - enemyHeight) - 2*enemySpacingY)) : enemyY;      
         enemyY = (enemyY < 2*enemySpacingY) ? floor(random(2*enemySpacingY, height - enemyHeight)) : enemyY;  
         
         for(int i = 0; i < 3; i++){              
