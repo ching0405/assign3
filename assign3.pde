@@ -159,7 +159,6 @@ void draw() {
       
       enemyArray = (enemyArray > 2) ? 0 : enemyArray;
       
-      //enemyY=enemyY+(fighterY-enemyY)/30;      
             
       //hp
       fill(255,0,0); 
@@ -169,13 +168,6 @@ void draw() {
       if(hp < 1){
         gameState = GAME_END;
       }     
-      
-      //game end
-      //if(fighterX+50 >= enemyX && fighterX <= enemyX+30 && fighterY+50 >= enemyY && fighterY <= enemyY+60){
-      //  hp -= hpDamage;
-      //  enemyX = 0;
-      //  enemyY = floor(random(420));  
-      //}    
       break;
       
     case GAME_END:
