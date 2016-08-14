@@ -1,8 +1,3 @@
-/* 
-author:ching
-update:2016/8/11
-*/
-
 final int GAME_START = 0;
 final int GAME_RUN = 1;
 final int GAME_END = 2;
@@ -21,7 +16,7 @@ int fighterWidth = 51;
 int fighterHeight = 51;
 
 int gameState;
-int enemyFly;
+int enemyArray;
 
 boolean upPressed = false;
 boolean downPressed = false;
@@ -65,7 +60,7 @@ void setup(){
   fighterY = (height - fighterHeight)/2; 
           
   gameState = GAME_START;
-  enemyFly = 0;
+  enemyArray = 0;
 }
 
 void draw() { 
@@ -129,35 +124,42 @@ void draw() {
       enemyX %= width + 4*enemySpacingX;       
       if(enemyX == 0){
         enemyY = floor(random(height - enemyHeight));        
-        enemyFly++;
-      }
-      if (enemyFly == 0){                   //enemy fly style1               
+        enemyArray++;
+          }
+      
+      switch (enemyArray){
+        case 0:  
         for(int i = 0; i < 5; i++){
           image(enemyImg, enemyX-i*enemySpacingX, enemyY);          
         }        
-      }        
-      if (enemyFly == 1){                   //enemy fly style2
-        //boundary detection
-        enemyY = (enemyY > (height - enemyHeight) - 4*enemySpacingY) ? (height - enemyHeight) - 4*enemySpacingY : enemyY; 
+        break; 
+        
+        case 1:                   
+        //boundary detection      
+        enemyY = (enemyY > (height - enemyHeight) - 4*enemySpacingY) ? floor(random((height - enemyHeight) - 4*enemySpacingY)) : enemyY; 
         
         for(int i = 0; i < 5; i++){
           image(enemyImg, enemyX-i*enemySpacingX, enemyY+i*enemySpacingY);
         }
-      }      
-      if (enemyFly == 2){                   //enemy fly style3 
+        break;    
+        
+        case 2:                  
         //boundary detection
-        enemyY = (enemyY > (height - enemyHeight) - 2*enemySpacingY) ? (height - enemyHeight) - 2*enemySpacingY : enemyY;      
-        enemyY = (enemyY < 2*enemySpacingY) ? 2*enemySpacingY : enemyY;  
+        enemyY = (enemyY > (height - enemyHeight) - 2*enemySpacingY) ? floor(random(height - enemyHeight) - 2*enemySpacingY) : enemyY;      
+        enemyY = (enemyY < 2*enemySpacingY) ? floor(random(2*enemySpacingY, height - enemyHeight)) : enemyY;  
         
         for(int i = 0; i < 3; i++){              
           image(enemyImg, enemyX - i*enemySpacingX, enemyY + i*enemySpacingY); 
           image(enemyImg, enemyX - 4*enemySpacingX + i*enemySpacingX, enemyY + i*enemySpacingY);           
           image(enemyImg, enemyX - i*enemySpacingX, enemyY - i*enemySpacingY);
           image(enemyImg, enemyX - 4*enemySpacingX + i*enemySpacingX, enemyY - i*enemySpacingY);
-        }         
+        }
+        break;
       }                 
       
-      enemyFly = (enemyFly > 2) ? 0 : enemyFly;
+      enemyArray = (enemyArray > 2) ? 0 : enemyArray;
+      
+      //enemyY=enemyY+(fighterY-enemyY)/30;      
             
       //hp
       fill(255,0,0); 
@@ -166,7 +168,14 @@ void draw() {
       image(hpImg,0,0);
       if(hp < 1){
         gameState = GAME_END;
-      }             
+      }     
+      
+      //game end
+      //if(fighterX+50 >= enemyX && fighterX <= enemyX+30 && fighterY+50 >= enemyY && fighterY <= enemyY+60){
+      //  hp -= hpDamage;
+      //  enemyX = 0;
+      //  enemyY = floor(random(420));  
+      //}    
       break;
       
     case GAME_END:
